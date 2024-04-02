@@ -9,12 +9,14 @@ The part of a glider code that will query information from DB is contained in th
 The query chain is constructed in DSL format
 
 ```python
-instructions = Functions()\
-  .with_one_property([MethodProp.EXTERNAL, MethodProp.PUBLIC])\
-  .without_properties([MethodProp.HAS_MODIFIERS, MethodProp.IS_CONSTRUCTOR])\
-  .instructions()\
-  .wit_called_function_name('selfdestruct')\
-  .exec()
+instructions = (
+    Functions()
+    .with_one_property([MethodProp.EXTERNAL, MethodProp.PUBLIC])
+    .without_properties([MethodProp.HAS_MODIFIERS, MethodProp.IS_CONSTRUCTOR])
+    .instructions()
+    .with_called_function_name("selfdestruct")
+    .exec()
+)
 ```
 
 As you can see here, the chain consists of different types of filterings, such as with\_one\_property, without\_properties, etc.
@@ -35,7 +37,7 @@ One should consider performance issues coming from changing entities multiple ti
 
 In such situations, it is much more effective to break it into multiple query chains and then combine the results.
 
-## Paginations of results
+## Pagination of results
 
 The last part of the query always ends with .exec() call, which can also be used to paginate the results in case the returned set is big.
 
